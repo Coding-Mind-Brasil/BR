@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Drag & Drop</title>
+	<style type="text/css">
+		.area{
+			width:  200px;
+			height: 200px;
+			background-color: #ccc;
+			float: left;
+			margin: 16px;
+		}
+		.box{
+			position: relative;
+			width:  100%;
+			height: 100%;
+			background-color: red;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+		}
+	</style>
+</head>
+<body>
+	<div class="area" id="area_1">
+		<div class="box" id="box_1" draggable="true"> <label>Box 1</label> </div>
+	</div>
+
+	<div class="area" id="area_2">
+		
+	</div>
+	
+	<div class="area" id="area_3">
+		<div class="box" id="box_2" draggable="true"> <label>Box 2</label> </div>
+	</div>
+	
+	<div class="area" id="area_4">
+		
+	</div>
+
+	<div class="area" id="area_5">
+		
+	</div>
+
+<script type="text/javascript">
+
+var areas = document.querySelectorAll(".area");	
+
+
+var dragStart = function(e){
+	e.target.style.backgroundColor = "blue";
+	e.target.style.width  = "80%";
+	e.target.style.height = "80%";
+}
+var dragEnd = function(e){
+	for(var area of areas){
+		if((e.clientX > area.getBoundingClientRect().x &&
+				e.clientX < area.getBoundingClientRect().x +area.clientWidth ) &&
+					(e.clientY > area.getBoundingClientRect().y &&
+					e.clientY  < area.getBoundingClientRect().y +area.clientHeight)){
+
+				if(area.childElementCount == 0){
+					area.appendChild(document.getElementById(e.target.id));
+				}
+				if(area.childElementCount == 1){
+					aux = area.firstElementChild;
+					e.target.parentElement.appendChild(document.getElementById(aux.id));
+					area.appendChild(document.getElementById(e.target.id));
+				}
+
+
+		}
+	}
+
+	e.target.style.width  = "100%";
+	e.target.style.height = "100%";
+	e.target.style.backgroundColor = "red";
+
+}
+
+document.addEventListener("dragstart" , dragStart);
+document.addEventListener("dragend" ,   dragEnd);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
