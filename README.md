@@ -1,2 +1,2 @@
 # BR
-This repository in portuguese(brazil)  
+Repository in portuguese(brazil)  
