@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Web Scraper Em JavaScript</title>
+</head>
+<body>
+
+
+
+<script type="text/javascript">
+	var proxy = "https://cors-anywhere.herokuapp.com/";
+	var url = "https://www.coinbase.com/price/bitcoin"; 
+	scraper = function(url){
+		
+		let x  = new XMLHttpRequest();
+		x.onreadystatechange = function(){
+			if(this.readyState==4 &&
+				this.status == 200){
+				
+
+				let response = this.responseText;
+
+				parser = new DOMParser();
+				xmlDoc = parser.parseFromString(response,"text/html");
+				let regex = /<span class="AssetChartAmount__Number-sc-1b4douf-1 AWmny">+([\d,.]+)<\/span>/g;
+				
+				document.body.innerHTML = "<h1>"+response.match(regex)+"</h1>";
+
+			}
+		}
+
+		x.open("GET", url);
+		x.send();
+	}
+	scraper(proxy+url);
+
+
+</script>
+</body>
+</html>
