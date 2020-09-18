@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>To-DO List</title>
+
+	<style type="text/css">
+		.content{
+			max-width: 400px;
+			max-height: 600px;
+			margin: auto;
+			background: #f3f3f3;
+			height: 450px;
+			padding: 2%;
+			border:1px solid;
+		}
+		.content h1{
+			text-align: center;
+
+		}
+		input[type=text]{
+			width: 80%;
+			height: 30px;
+			margin-bottom: 10px;
+		}
+		input[type=button]{
+			border: none;
+			width: 17%;
+			float: right;
+			height: 35px;
+		}
+		button:hover, input[type=button]:hover{
+			background: #ccc;
+		}
+
+		button, input[type=button]{ cursor: pointer; }
+
+		button{
+			float: right;
+			width: 25px;
+			padding: 5px;
+		}
+		ul{
+			list-style-type: none;
+			padding: 10px;
+			height: 250px;
+			background: #fff;
+			overflow-y: auto;
+		}
+		li{
+			height: 40px;
+			margin: 15px 0 15px 0;
+			border-bottom: 1px solid;
+
+
+		}
+
+
+	</style>
+	
+</head>
+<body>
+
+<div class='content'>
+	<div class="row">
+		<div class="col-12">
+			<h1> To-Do List </h1>
+				<form>
+
+					<input type="text" name="task" id='task' placeholder="Novo Item..." />
+					<input type="button" name="" onclick="addTask();" value="addTask"/>
+
+				</form>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="to-do-list-box">
+				<label>My List</label>
+				<ul id="myList"></ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	function ToDo(id, task, is_done=false, is_trask=false){
+		this.id       = id;
+		this.task     = task;
+		this.is_done  = is_done;
+		this.is_trask = is_trask;
+	}
+	ToDo.prototype={
+		id      : 0,
+		task    : "",
+		is_done : false,
+		is_trask: false
+	}
+
+
+	var tasks_list_ui  = document.getElementById("myList");
+	var toDoList       = [];
+	function addTask(){
+		let task;
+		let task_id;
+		if(document.getElementById("task").value == "")
+			return null;
+		
+		localStorage.last_index = (localStorage.last_index == undefined ? 1 : 
+													 (parseInt(localStorage.last_index)+1));
+		
+		task_el = document.getElementById("task");
+		task_id = localStorage.last_index;
+		toDoList.push(new ToDo(task_id, task_el.value));
+		addToLocalStorage(toDoList);
+		addElToList_UI(task_id, task_el.value);
+		task_el.value = "";
+		//render();
+	}
+
+	function removeTask(id){
+		for( i = 0 ; i < tasks_list_ui.children.length ; i++){
+
+			if(tasks_list_ui.children[i].getAttribute("index") == id ){
+
+				tasks_list_ui.children[i].remove();
+				toDoList.splice(i,1);
+				addToLocalStorage(toDoList);
+				return 0;
+			}
+		}
+	}
+	
+
+	function getDataFromLocalStorage(){
+		if(localStorage.last_index == undefined || 
+			localStorage.last_index==0)
+			return null;
+		toDoList = JSON.parse(localStorage.toDoList);
+	}
+
+	function addToLocalStorage(toDoList){
+		localStorage.toDoList = JSON.stringify(toDoList);
+	}
+
+
+	function render(){
+		if(localStorage.last_index == undefined || 
+			localStorage.last_index==0)
+			return null;
+		for(let toDo of JSON.parse(localStorage.toDoList)){
+			addElToList_UI(toDo.id, toDo.task);
+		}
+	}
+	function addElToList_UI(id, task){
+		li 	   = createItemEl(id,task);
+		li.appendChild(createRemoveTaskBtn(id));
+		tasks_list_ui.appendChild(li);
+	}
+
+	function createItemEl(key, value){
+
+		let li = document.createElement("li");
+
+		li.setAttribute("index", key);
+
+		li.appendChild(document.createTextNode(value));
+
+		return li;
+	}
+	function createRemoveTaskBtn (itemId){
+		let btn =  document.createElement("button");
+		btn.setAttribute("onclick", "removeTask("+itemId+")"); 
+		btn.innerHTML ="X";
+		return btn;
+	}
+	
+
+
+	getDataFromLocalStorage();
+	render();
+	</script>
+</body>
+</html-->
