@@ -1,0 +1,87 @@
+	body{
+			background: white;
+			color: black;
+
+		}
+		*{
+			box-sizing: border-box;
+		}
+		.to-do-list-app{
+			
+			width: 500px;
+			margin: auto;	
+		}
+
+		.to-do-list-app h1{
+			font-size: 3rem;
+			margin:  1rem 0;
+			text-align: center;
+		}
+		.task-input-wrapper, .#to-do-list{
+			width: 100%;
+			padding: 2rem;
+			--background: white;
+			border-radius: 15px;
+		}
+		.input-box, .btn{
+			width: 100%;
+			padding: 12px;
+			border-radius: 15px;
+			outline: none;
+			border:0 solid black;
+		}
+		.input-box{
+			text-transform: uppercase;
+			background: #f1f0ff;
+		}
+		.btn-add-task{
+			margin-top: .5rem;
+			background: #09fb19;
+		}
+		.color-green{
+			color: #26692a;
+		}
+		.color-red{
+			color: #ff2600;
+		}
+		.to-do-list{
+			max-height: 600px;
+			margin: 1rem 0;
+			overflow: none;
+			overflow-x: none;
+			overflow-y: auto;
+		}
+		.item{
+			text-transform: uppercase;
+		    display: flex;
+		    justify-content: space-between;
+		    margin-top: 2rem;
+		    border-bottom: 5px solid black;
+		    padding: 5px;
+		    font-size: 1.2rem;
+		    --color: black;
+		    
+		}
+		.task-wrapper{
+			--width: 80%;
+			text-align: justify;
+			padding: 0 1rem 0 0;
+		}
+		.action-btn-wrapper{
+			    display: flex;
+			    justify-content: space-between;
+			    align-items: center;
+			    --flex-wrap: wrap;
+			}
+		.done-btn{
+			
+		}
+
+		.action-btn{
+			cursor: pointer;
+			margin-left: 10px;
+		}
+		.action-btn:hover{
+			font-size:1.2rem;
+		}
+		
